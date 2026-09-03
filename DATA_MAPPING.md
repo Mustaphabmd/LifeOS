@@ -36,6 +36,6 @@ Every mutable collection row also stores a `legacy_id`. Combined with `user_id`,
 | Key | Purpose |
 |---|---|
 | `lifeos_merged_v4` | Untouched legacy source; never deleted automatically |
-| `lifeos_supabase_cache_v1` | Last verified remote/optimistic snapshot for offline rendering |
-| `lifeos_pending_sync_v1` | Latest unsynchronized snapshot; removed after successful sync |
-| Supabase client keys | Authentication session restoration managed by the official client |
+| `lifeos_device_cache_v1` | Current device-local application data |
+| `lifeos_supabase_cache_v1` | Previous cache imported once for compatibility |
+| `lifeos_pending_sync_v1` | Previous pending snapshot imported into the device cache, then removed |

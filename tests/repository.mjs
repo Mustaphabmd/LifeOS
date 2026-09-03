@@ -17,7 +17,7 @@ if (!migration.includes("foreach table_name in array")) throw new Error('RLS pol
 for (const operation of ['select','insert','update','delete']) {
   if (!migration.includes(`table_name || '_${operation}_own'`)) throw new Error(`Policy generator is missing ${operation}`);
 }
-if (!service.includes("'Africa/Casablanca'")) throw new Error('Casablanca timezone missing');
+if (!app.includes("'Africa/Casablanca'")) throw new Error('Casablanca timezone missing');
 if (!app.includes("const KEY='lifeos_merged_v4'")) throw new Error('Legacy migration key missing');
 if ((app.match(/localStorage\.setItem\(KEY/g) || []).length) throw new Error('Legacy localStorage remains a primary write target');
 if (/sb_secret_[A-Za-z0-9_-]{20,}/.test(config)) throw new Error('Supabase secret key found in browser configuration');

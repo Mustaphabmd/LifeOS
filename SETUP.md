@@ -1,6 +1,10 @@
 # LifeOS setup
 
-## 1. Create and prepare Supabase
+LifeOS currently opens without authentication and stores data only in the browser on the current device. No setup is required to run it.
+
+The Supabase migration below is retained for a future authenticated, cross-device mode. It is not used by the current password-free application because exposing personal tables through the public anon role would allow anyone to read or change the data.
+
+## Optional future Supabase setup
 
 1. Create a Supabase project and keep its region close to Morocco when possible.
 2. Open **SQL Editor**, paste `supabase/migrations/202609030001_initial_lifeos_schema.sql`, and run it once. If you use the Supabase CLI instead, link the project and run `supabase db push`.
@@ -28,5 +32,4 @@ All asset and navigation URLs are relative, so the application works below `http
 
 ## Local visual/smoke test
 
-The unauthenticated production application always redirects to `auth.html`. For local-only UI regression testing, run a static server and open `LifeOS.html?visual-test=1` from `localhost`. This bypass is rejected on non-local hosts.
-
+Run a static server and open `LifeOS.html`. The application opens directly without a login screen.

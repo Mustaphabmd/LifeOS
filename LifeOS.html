@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>LifeOS</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='18' fill='%23244bc7'/><text x='32' y='44' text-anchor='middle' font-size='38' font-family='Arial' font-weight='700' fill='white'>L</text></svg>">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./supabase/config.js"></script>
 <script src="./supabase/data-service.js"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -49,7 +47,6 @@
         <div id="managerTemplates" class="space-y-3"></div>
         <button onclick="addTemplate()" class="mt-4 w-full bg-surface-container-low rounded-xl py-3 text-primary font-semibold">+ Add fixed expense</button>
       </section>
-      <button onclick="logoutApp()" class="w-full bg-red-50 text-error rounded-xl py-3 font-semibold">Sign out</button>
     </div>
   </div>
 </div>
@@ -1147,10 +1144,6 @@ function showScreen(id){
 }
 
 function closeSheets(){document.querySelectorAll('.sheet-wrap').forEach(x=>x.classList.remove('show'))}
-async function logoutApp(){
-  if(!confirm('Sign out of LifeOS?'))return;
-  await window.LifeOSData.signOut();
-}
 function openQuickAdd(){closeSheets();$('quickSheet').classList.add('show')}
 function openRelationshipAdd(){openQuickAdd()}
 function openMotoExpense(type){
