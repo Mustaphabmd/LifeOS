@@ -1,0 +1,10 @@
+{
+  "name": "lifeos-static",
+  "private": true,
+  "scripts": {
+    "test": "node tests/repository.mjs && node tests/ui-smoke.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.55.0"
+  }
+}
