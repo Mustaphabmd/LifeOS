@@ -89,8 +89,10 @@ const authErrors=[];
 authPage.on('pageerror',error=>authErrors.push(error.message));
 authPage.on('console',message=>{if(message.type()==='error')authErrors.push(message.text())});
 await authPage.goto(baseURL.replace('/LifeOS.html?visual-test=1','/LifeOS.html'),{waitUntil:'networkidle'});
-if(!authPage.url().includes('/auth.html?setup=1'))throw new Error('Unconfigured/unauthenticated redirect failed');
-if(!(await authPage.locator('#message').textContent()).includes('not configured'))throw new Error('Configuration guidance failed');
+if(!authPage.url().includes('/auth.html'))throw new Error('Unauthenticated redirect failed');
+if(authPage.url().includes('?setup=1')){
+  if(!(await authPage.locator('#message').textContent()).includes('not configured'))throw new Error('Configuration guidance failed');
+}else if(!await authPage.locator('#loginForm').isVisible())throw new Error('Configured login form is not visible');
 if (errors.length || authErrors.length) throw new Error(`Browser errors: ${[...errors,...authErrors].join(' | ')}`);
 console.log(JSON.stringify({ ok: true, state }));
 await browser.close();

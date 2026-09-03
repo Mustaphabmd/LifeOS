@@ -20,5 +20,10 @@ for (const operation of ['select','insert','update','delete']) {
 if (!service.includes("'Africa/Casablanca'")) throw new Error('Casablanca timezone missing');
 if (!app.includes("const KEY='lifeos_merged_v4'")) throw new Error('Legacy migration key missing');
 if ((app.match(/localStorage\.setItem\(KEY/g) || []).length) throw new Error('Legacy localStorage remains a primary write target');
-if (/sb_secret_[A-Za-z0-9_-]{20,}/.test(config) || /eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/.test(config)) throw new Error('Possible private credential found');
+if (/sb_secret_[A-Za-z0-9_-]{20,}/.test(config)) throw new Error('Supabase secret key found in browser configuration');
+const jwt = config.match(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/)?.[0];
+if (jwt) {
+  const payload = JSON.parse(Buffer.from(jwt.split('.')[1], 'base64url').toString('utf8'));
+  if (payload.role !== 'anon') throw new Error(`Privileged Supabase JWT found in browser configuration: ${payload.role || 'unknown role'}`);
+}
 console.log(JSON.stringify({ ok: true, tables: tables.length, legacyKey: 'lifeos_merged_v4' }));
